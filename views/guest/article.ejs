@@ -1,0 +1,10 @@
+<%- include('../partials/header') %>
+<div class="container article-content">
+    <h1><%= article.title %></h1>
+    <p class="date">Published on: <%= new Date(article.date).toLocaleDateString() %></p>
+    <div class="content-body">
+        <p><%= article.content %></p>
+    </div>
+    <a href="/" class="back-link">← Back to Home</a>
+</div>
+<%- include('../partials/footer') %>

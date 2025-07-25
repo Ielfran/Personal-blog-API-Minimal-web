@@ -1,68 +1,53 @@
 const express = require('express');
-const fs = require('fs/promises');
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
-
-const router = express.Router();
-const articleDir = path.join(__dirname, '..', 'article');
-
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'password';
+const session = require('express-session');
+const fs = require('fs');
 
 
-//Authentication Middleware
-const isAuth = (req, res, next) => {
-    if(req.session.isAuth) {
-        return next();
-    }
-    res.redirect('/admin/login');
-};
+//creating the article directory
+const articleDir= path.join(__dirname, 'articles');
+if(!fs.existsSync(articleDir)) {
+    fs.mkdirSync(articleDir);
+}
 
-const getAllArticles = async () => {
-    try{
-        const files = await fs.readdir(articlesDir);
-        const articles = [];
-        for(const file of files) {
-            if(path.extname(file) === '.json') {
-                const content = await fs.readFile(path.join(articleDir, file), 'utf8');
-                const article = JSON.parse(content);
-                article.id = path.basename(file, '.json');
-                articles.push(article);
-            }
-        }
-        return articles.sort((a,b) => new Date(b.date) - new Date(a.date));
-    }catch(error) {
-        console.error("Error reading articles:", error);
-        return [];
-    }
-};
-//Login routes
-router.get('/login', (req, res) => {
-    res.render('admin/login', { pageTitle: 'Admin Login', error:null });
-});
 
-router.post('/login', (req, res) => {
-    const {username, password} = req.body;
-    if(username === ADMIN_USER && password === ADMIN_PASS){
-        req.session.isAuth = true;
-        res.redirect('/admin/dashboard');
-    }else{
-        res.render('admin/login', { pageTitle : 'Admin Login', error: 'Invalid credentials'});
-    }
-});
+const app = express();
+const PORT= 3000;
 
-//logout routes
-router.post('/logout', (req, res) => {
-    req.session.destroy(err => {
-        if(err) {
-            return res.redirect('/admin/dashboard');
-        }
-        res.redirect('/');
+//set up view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+//Middleware
+app.use(express.static(path.join(__dirname, 'public'))); //serve static files
+app.use(express.urlencoded({extended: true })); //parse form data
+
+
+// Session middleware for admin authentication
+app.use(session({
+    secret: 'your-very-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } //true if using HTTPS
+}));
+
+// Routes
+const guestRoutes = require('./routes/guest');
+const adminRoutes = require('./routes/admin');
+
+app.use('/', guestRoutes);
+app.use('/admin', adminRoutes);
+
+// 404 Handler
+app.use((req, res) => {
+    res.status(404).render('guest/home', { 
+        pageTitle: 'Page Not Found', 
+        articles: [], 
+        error: '404 - Page Not Found' 
     });
 });
-//Dashboard
-router.get('/dashboard', isAuth, async (req, res) -> {
-    consta articles = await getAllArticles();
-    res.render('admin/dashboard', {pageTitle :'Admin Dashboard', articles});
-});
 
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});

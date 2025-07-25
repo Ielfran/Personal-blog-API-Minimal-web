@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+<div class="container">
+    <h1>Latest Articles</h1>
+    <% if (error) { %>
+        <p class="error"><%= error %></p>
+    <% } %>
+    <% if (articles.length > 0) { %>
+        <ul class="article-list">
+            <% articles.forEach(article => { %>
+                <li class="article-item">
+                    <h2><a href="/article/<%= article.id %>"><%= article.title %></a></h2>
+                    <p class="date">Published on: <%= new Date(article.date).toLocaleDateString() %></p>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No articles published yet. Come back later!</p>
+    <% } %>
+</div>
+<%- include('../partials/footer') %>
