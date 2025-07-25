@@ -1,37 +1,39 @@
-
-/* General Styles */
+/* General */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Orbitron', sans-serif;
     margin: 0;
     line-height: 1.6;
-    background: #f4f4f4;
-    color: #333;
+    background: #0d0d0d;
+    color: #e0e0e0;
 }
 
 .container {
     max-width: 960px;
     margin: 2rem auto;
-    padding: 0 1.5rem;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 2rem;
+    background: #1a1a1a;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    border: 1px solid #00ffff;
 }
 
+/* Links */
 a {
-    color: #007bff;
+    color: #00ffff;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
-
 a:hover {
+    text-shadow: 0 0 5px #00ffff;
     text-decoration: underline;
 }
 
 /* Header */
 .main-header {
-    background: #333;
-    color: #fff;
+    background: linear-gradient(90deg, #000, #111 50%, #000);
+    color: #00ffff;
     padding: 1rem 0;
+    box-shadow: 0 0 15px #00ffff;
 }
 
 .main-nav {
@@ -44,12 +46,15 @@ a:hover {
 }
 
 .main-nav a {
-    color: #fff;
+    color: #0ff;
+    font-weight: bold;
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
 }
 
 /* Article List */
@@ -60,29 +65,33 @@ a:hover {
 
 .article-item {
     padding: 1rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #333;
 }
 
 .article-item h2 a {
-    color: #333;
+    color: #fff;
+    text-shadow: 0 0 5px #0ff;
 }
 
 .date {
-    color: #777;
+    color: #888;
     font-size: 0.9rem;
 }
 
 /* Article Content */
 .article-content h1 {
     margin-bottom: 0.5rem;
+    color: #ff00ff;
+    text-shadow: 0 0 8px #ff00ff;
 }
 .article-content .content-body {
     margin-top: 2rem;
-    white-space: pre-wrap; /* Preserves whitespace and newlines */
+    white-space: pre-wrap;
 }
 .back-link {
     display: inline-block;
     margin-top: 2rem;
+    color: #00ffff;
 }
 
 /* Forms */
@@ -96,6 +105,7 @@ a:hover {
 .form-control label {
     display: block;
     margin-bottom: 0.5rem;
+    color: #0ff;
 }
 .form-control input[type="text"],
 .form-control input[type="password"],
@@ -104,32 +114,41 @@ a:hover {
     width: 100%;
     padding: 0.8rem;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    background: #0f0f0f;
+    color: #0ff;
+    border: 1px solid #00ffff;
     border-radius: 4px;
 }
 .form-control textarea {
     resize: vertical;
 }
+
+/* Buttons */
 .btn {
     display: inline-block;
     padding: 0.8rem 1.5rem;
-    background: #007bff;
-    color: #fff;
+    background: #00ffff;
+    color: #000;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
     text-align: center;
+    box-shadow: 0 0 10px #0ff;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 .btn:hover {
-    background: #0056b3;
+    background: #0ff;
+    box-shadow: 0 0 20px #0ff;
     text-decoration: none;
 }
 .btn-danger {
-    background: #dc3545;
+    background: #ff003c;
+    box-shadow: 0 0 10px #ff003c;
 }
 .btn-danger:hover {
-    background: #c82333;
+    background: #ff1a52;
+    box-shadow: 0 0 20px #ff1a52;
 }
 
 /* Admin Dashboard */
@@ -142,14 +161,16 @@ a:hover {
 .dashboard-table {
     width: 100%;
     border-collapse: collapse;
+    color: #fff;
 }
 .dashboard-table th, .dashboard-table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #444;
 }
 .dashboard-table th {
-    background: #f8f9fa;
+    background: #222;
+    color: #00ffff;
 }
 .actions {
     display: flex;
@@ -166,19 +187,21 @@ a:hover {
     cursor: pointer;
 }
 .btn-edit {
-    background: #28a745;
+    background: #00ff6a;
+    box-shadow: 0 0 8px #00ff6a;
 }
 .btn-delete {
-    background: #dc3545;
+    background: #ff003c;
+    box-shadow: 0 0 8px #ff003c;
 }
 
 /* Error Message */
 .error {
-    color: red;
-    background: #fdd;
+    color: #ff3c3c;
+    background: #3d0000;
     padding: 1rem;
     border-radius: 4px;
-    border: 1px solid red;
+    border: 1px solid #ff0000;
+    box-shadow: 0 0 10px #ff003c;
 }
-
 
